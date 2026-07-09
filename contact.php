@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="id">
-<link rel="stylesheet" href="asset/img/style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Riva Hisyam Maulana</title>
+    <link rel="stylesheet" href="asset/img/style.css">
+</head>
 <body>
-    
-    <table border="1" cellspacing="0" cellpadding="10px"> 
-    <tr>
-        <!--  TR ADALAH BARIS, TD ADALAH KOLOM -->
-        <td>    
-            <a href="index.php">Home</a>
-        </td>
-        
-        <td>
-            <a href="profil.php">Profile</a>
-        </td>
-        <td>
-            <a href="contact.php">Contact</a>
-        </td>
-        <td><a href="mahasiswa.php">Mahasiswa</a></td>
-        <td>
-            <a href="inputdata.php">Input Data</a></td>
-        <td><a href="logout.php" onclick="return confirm('Apakah Anda yakin ingin logout?');">Logout</a></td>
-    </tr>
-</table>
-<h2>Contact Saya</h2>
+
+    <table border="1" cellspacing="0" cellpadding="10">
+        <tr>
+            <!-- TR adalah baris, TD adalah kolom -->
+            <td>
+                <a href="index.php">Home</a>
+            </td>
+
+            <td>
+                <a href="profil.php">Profile</a>
+            </td>
+
+            <td>
+                <a href="contact.php">Contact</a>
+            </td>
+
+            <td>
+                <a href="mahasiswa.php">Mahasiswa</a>
+            </td>
+
+            <td>
+                <a href="inputdata.php">Input Data</a>
+            </td>
+
+            <td>
+                <a href="logout.php" onclick="return confirm('Apakah Anda yakin ingin logout?');">Logout</a>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Contact Riva Hisyam Maulana</h2>
+
     <p>
-        Kamu tertarik dan ingin menghubungi saya?
-        Jangan ragu untuk menghubungi saya melalui email atau nomor telepon yang tertera di bawah ini
-        Saya akan dengan senang hati menjawab pertanyaan atau berdiskusi lebih lanjut tentang topik apa pun yang kamu minati.
-        hubungi saya dengan email : muhannadhussein24@gmail.com <br>
-        atau dengan nomor telepon : 085176967007
+
+        <strong>Nama :</strong> Riva Hisyam Maulana <br>
+        <strong>Email :</strong> rivmaulana4@gmail.com <br>
+        <strong>No. Telepon :</strong> 085655510091
     </p>
+
 </body>
 </html>
