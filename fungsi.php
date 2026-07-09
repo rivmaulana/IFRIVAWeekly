@@ -1,6 +1,6 @@
 <?php
 
-    $koneksi = mysqli_connect ("localhost", "root", "", "ifhsnweekly");
+    $koneksi = mysqli_connect ("localhost", "root", "", "IFRIVAWeekly");
 
     function tampildata($query)
     {
