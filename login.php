@@ -1,65 +1,101 @@
 <?php
 session_start();
-require 'fungsi.php';
+include "fungsi.php";
 
-$message = '';
+$notif = "";
 
-if (isset($_POST['login'])) {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($username === '' || $password === '') {
-        $message = '<p class="message error">Username dan password wajib diisi.</p>';
-    } else {
-        $username = mysqli_real_escape_string($koneksi, $username);
-        $query = "SELECT * FROM users WHERE username = '$username'";
-        $result = mysqli_query($koneksi, $query);
+    $user = htmlspecialchars(trim($_POST["username"]));
+    $pass = $_POST["password"];
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            $user = mysqli_fetch_assoc($result);
+    if (!empty($user) && !empty($pass)) {
 
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['login'] = true;
-                $_SESSION['username'] = $username;
-                header('Location: index.php');
-                exit;
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $stmt = mysqli_prepare($koneksi, $sql);
+
+        mysqli_stmt_bind_param($stmt, "s", $user);
+        mysqli_stmt_execute($stmt);
+
+        $hasil = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($hasil) == 1) {
+
+            $data = mysqli_fetch_assoc($hasil);
+
+            if (password_verify($pass, $data["password"])) {
+
+                $_SESSION["login"] = true;
+                $_SESSION["username"] = $data["username"];
+
+                header("Location: index.php");
+                exit();
+
             } else {
-                $message = '<p class="message error">Password salah.</p>';
+                $notif = "<div class='message error'>Password yang Anda masukkan tidak benar.</div>";
             }
+
         } else {
-            $message = '<p class="message error">Username tidak ditemukan.</p>';
+            $notif = "<div class='message error'>Akun tidak ditemukan.</div>";
         }
+
+        mysqli_stmt_close($stmt);
+
+    } else {
+        $notif = "<div class='message error'>Semua kolom harus diisi.</div>";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Halaman Login</title>
     <link rel="stylesheet" href="asset/img/style.css">
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <h2>Login</h2>
-            <?php echo $message; ?>
-            <form method="POST">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required>
-                </div>
-                <button type="submit" name="login">Masuk</button>
-            </form>
-            <p style="text-align:center; margin-top:15px;">
-                Belum punya akun? <a href="register.php">Daftar</a>
-            </p>
+
+<div class="auth-container">
+    <div class="auth-card">
+
+        <h2>Silakan Login</h2>
+
+        <?= $notif; ?>
+
+        <form action="" method="post">
+
+            <div class="form-group">
+                <label>Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Masukkan Username"
+                    autocomplete="off"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Masukkan Password"
+                    required>
+            </div>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <div style="text-align:center; margin-top:18px;">
+            Belum memiliki akun?
+            <a href="register.php">Registrasi</a>
         </div>
+
     </div>
+</div>
+
 </body>
 </html>
